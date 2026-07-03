@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "raistyl_misxi:rpg936rmv1"
+    },
+    {
+      "item": "raistyl_misxi:the_white_halo"
+    }
+  ],
+  "result": {
+    "item": "raistyl_misxi:rpg936rmv1",
+    "count": 1
+  }
+}

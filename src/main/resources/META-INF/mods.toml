@@ -1,0 +1,33 @@
+# 読み込むモッドローダーのタイプ（通常のForge用Modは "javafml"）
+modLoader="javafml" # 必須
+# モッドローダーのバージョン範囲（通常はForgeのバージョン）
+loaderVersion="${loader_version_range}" # 必須
+
+# Modのライセンス
+license="${mod_license}"
+
+# Mod情報の定義
+[[mods]] # 必須
+modId="raistyl_misxi" # 必須（Mod ID）
+version="1.0.0" # 必須（Modのバージョン）
+displayName="Raistylmisxi" # 必須（画面に表示されるMod名）
+authors="tyamizumoti" # 任意（制作者名）
+
+# Modの説明文（複数行対応）
+description='''すんごい気まぐれで色々追加されるmod''' # 必須
+
+# 依存関係の設定：Minecraft Forgeへの依存
+[[dependencies.${mod_id}]]
+    modId="forge" # 必須
+    mandatory=true # 必須（このModの起動に必須か）
+    versionRange="${forge_version_range}" # 必須（対応するForgeのバージョン範囲）
+    ordering="NONE" # 読み込み順序（BEFORE / AFTER / NONE）
+    side="BOTH" # 適用する側（BOTH / CLIENT / SERVER）
+
+# 依存関係の設定：Minecraft本体への依存
+[[dependencies.${mod_id}]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="${minecraft_version_range}" # 対応するマイクラのバージョン範囲
+    ordering="NONE"
+    side="BOTH"

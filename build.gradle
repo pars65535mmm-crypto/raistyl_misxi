@@ -1,0 +1,158 @@
+plugins {
+    id 'eclipse'
+    id 'idea'
+    id 'maven-publish'
+    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
+}
+
+version = mod_version
+group = mod_group_id
+
+base {
+    archivesName = mod_id
+}
+
+// Mojangは1.18以降でJava 17を採用しているため、Java 17をターゲットにします。
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
+minecraft {
+    // 開発環境のマッピングを設定
+    mappings channel: mapping_channel, version: mapping_version
+
+    // IDE（Eclipse/IntelliJ）からの起動前に、ProcessResourcesタスクを実行してリソースを同期します。
+    copyIdeResources = true
+
+    // 実行構成（Run Configurations）の設定
+    runs {
+        // すべての実行構成に適用される共通設定
+        configureEach {
+            workingDirectory project.file('run')
+
+            // 開発環境用の推奨ログマーカー設定
+            property 'forge.logging.markers', 'REGISTRIES'
+
+            // コンソールの推奨ログレベル
+            property 'forge.logging.console.level', 'debug'
+
+            mods {
+                "${mod_id}" {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        client {
+            // ゲームテストをロードする名前空間。空の場合はすべての名前空間。
+            property 'forge.enabledGameTestNamespaces', mod_id
+        }
+
+        server {
+            property 'forge.enabledGameTestNamespaces', mod_id
+            args '--nogui'
+        }
+
+        // GameTestServerを起動して登録済みのゲームテストを実行し、終了する設定
+        gameTestServer {
+            property 'forge.enabledGameTestNamespaces', mod_id
+        }
+
+        data {
+            // データ生成用の作業ディレクトリ設定
+            workingDirectory project.file('run-data')
+
+            // データ生成（Data Generation）用の引数設定
+            args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+        }
+    }
+}
+
+// データジェネレーターによって生成されたリソースを含める設定
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+repositories {
+    mavenCentral()
+    // 依存関係（外部ライブラリなど）のリポジトリをここに記述します。
+    // ※ForgeのMavenとMaven CentralはForgeGradleによって自動で追加されます。
+    maven {
+        url = "https://maven.theillusivec4.top/"
+    }
+    // ⭕ ここにJEI用の公式倉庫を追記するぜ！
+    maven {
+        name = "ModMaven"
+        url = "https://modmaven.dev"
+    }
+    maven {
+        name = "Iron's Maven - Release"
+        url = "https://code.redspace.io/releases"
+    }
+}
+
+dependencies {
+    // 使用するMinecraftとForgeのバージョンを指定
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:5.9.1+1.20.1")
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:5.9.1+1.20.1:api")
+    compileOnly "mezz.jei:jei-1.20.1-common-api:15.3.0.4"
+    compileOnly "mezz.jei:jei-1.20.1-forge-api:15.3.0.4"
+    // ✅ Iron's Spells 'n Spellbooks (正しいバージョン名！)
+    compileOnly fg.deobf("io.redspace:irons_spellbooks:1.20.1-3.16.1:api")
+    runtimeOnly fg.deobf("io.redspace:irons_spellbooks:1.20.1-3.16.1")
+
+    // ✅ Iron's Lib (必要に応じて)
+    runtimeOnly fg.deobf("io.redspace:irons_lib:1.20.1-1.1.0")  // または 1.20.1-1.0.0
+
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+}
+
+// mods.toml や pack.mcmeta などのリソースファイルに、gradle.properties で定義した変数を展開するタスク
+tasks.named('processResources', ProcessResources).configure {
+    var replaceProperties = [
+            minecraft_version: minecraft_version, minecraft_version_range: minecraft_version_range,
+            forge_version: forge_version, forge_version_range: forge_version_range,
+            loader_version_range: loader_version_range,
+            mod_id: mod_id, mod_name: mod_name, mod_license: mod_license, mod_version: mod_version,
+            mod_authors: mod_authors, mod_description: mod_description,
+    ]
+    inputs.properties replaceProperties
+
+    filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
+        expand replaceProperties + [project: project]
+    }
+}
+
+// JARファイルのメタデータ（MANIFEST.MF）の設定
+tasks.named('jar', Jar).configure {
+    manifest {
+        attributes([
+                'Specification-Title'     : mod_id,
+                'Specification-Vendor'    : mod_authors,
+                'Specification-Version'   : '1',
+                'Implementation-Title'    : project.name,
+                'Implementation-Version'  : project.jar.archiveVersion,
+                'Implementation-Vendor'   : mod_authors,
+                'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
+
+    // JAR作成後に難読化（Reobfuscate）を自動で実行
+    finalizedBy 'reobfJar'
+}
+
+// maven-publish プラグインを使用した公開用の設定
+publishing {
+    publications {
+        register('mavenJava', MavenPublication) {
+            artifact jar
+        }
+    }
+    repositories {
+        maven {
+            url "file://${project.projectDir}/mcmodsrepo"
+        }
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8' // Javaコンパイル時にUTF-8エンコーディングを使用
+}

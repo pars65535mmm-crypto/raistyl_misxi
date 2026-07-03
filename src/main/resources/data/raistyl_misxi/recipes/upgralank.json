@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BDB",
+    "CAC",
+    "DDD"
+  ],
+  "key": {
+    "A": {
+      "item": "raistyl_misxi:upgra"
+    },
+    "B": {
+      "tag": "forge:ingots/steel"
+    },
+    "C": {
+      "item": "raistyl_misxi:chrono_ingot"
+    },
+    "D": {
+      "item": "minecraft:nether_star"
+    }
+  },
+  "result": {
+    "item": "raistyl_misxi:upgralank",
+    "count": 1
+  }
+}

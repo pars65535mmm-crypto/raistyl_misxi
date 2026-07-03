@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ADA",
+    "BCB",
+    "EEE"
+  ],
+  "key": {
+    "A": { "tag": "forge:ingots/iron" },
+    "B": { "tag": "forge:ingots/steel" },
+    "C": { "tag": "forge:ingots/tin" },
+    "D": { "tag": "forge:ingots/lead" },
+    "E": { "tag": "forge:ingots/osmium" }
+  },
+  "result": {
+    "item": "raistyl_misxi:upgra",
+    "count": 1
+  }
+}

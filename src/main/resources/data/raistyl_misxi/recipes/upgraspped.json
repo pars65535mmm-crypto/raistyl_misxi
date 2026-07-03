@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BCB",
+    "ADA",
+    "BBB"
+  ],
+  "key": {
+    "A": {
+      "item": "raistyl_misxi:incomplete_chrono_ingot"
+    },
+    "B": {
+      "item": "minecraft:iron_ingot"
+    },
+    "C": {
+      "item": "minecraft:clock"
+    },
+    "D": {
+      "item": "raistyl_misxi:upgra" 
+    }
+  },
+  "result": {
+    "item": "raistyl_misxi:upgraspped",
+    "count": 1
+  }
+}

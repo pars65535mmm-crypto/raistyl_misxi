@@ -1,0 +1,11 @@
+{
+  "name": "時空",
+  "color": "0x6699FF",
+  "focus": {
+    "item": "raistyl_misxi:chrono_ingot"
+  },
+  "power_attribute": "raistyl_misxi:time_spell_power",
+  "resistance_attribute": "raistyl_misxi:time_magic_resist",
+  "default_cast_sound": "irons_spellbooks:block.inscription_table.use",
+  "icon": "raistyl_misxi:textures/gui/school_icons/time.png"
+}

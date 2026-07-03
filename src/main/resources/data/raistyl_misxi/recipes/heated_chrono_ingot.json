@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "raistyl_misxi:incomplete_chrono_ingot"
+  },
+  "result": {
+    "item": "raistyl_misxi:incomplete_chrono_ingot"
+  },
+  "experience": 1.0,
+  "cookingtime": 1000
+}

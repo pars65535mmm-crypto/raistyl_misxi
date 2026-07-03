@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/tinted_cube",
+  "textures": {
+    "all": "minecraft:block/gold_block"
+  }
+}

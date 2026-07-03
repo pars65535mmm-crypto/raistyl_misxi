@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "raistyl_misxi:block/time_collector_bottom",
+    "up": "raistyl_misxi:block/time_collector_top",
+    "north": "raistyl_misxi:block/time_collector_front",
+    "south": "raistyl_misxi:block/time_collector_back",
+    "west": "raistyl_misxi:block/time_collector_side_left",
+    "east": "raistyl_misxi:block/time_collector_side_right"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "OEO",
+    "EKE",
+    "OEO"
+  ],
+  "key": {
+    "O": {
+      "item": "minecraft:obsidian"
+    },
+    "E": {
+      "item": "minecraft:ender_eye"
+    },
+    "K": {
+      "item": "minecraft:nether_star"
+    }
+  },
+  "result": {
+    "item": "raistyl_misxi:aether_fluid_workbench",
+    "count": 1
+  }
+}
