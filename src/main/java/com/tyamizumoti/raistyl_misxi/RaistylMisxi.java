@@ -5,6 +5,7 @@ import com.tyamizumoti.raistyl_misxi.item.HaloItem;
 import com.tyamizumoti.raistyl_misxi.item.ChronoIngotItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.Rarity;
+import com.tyamizumoti.raistyl_misxi.registry.ModSchools;
 import com.tyamizumoti.raistyl_misxi.registry.ModSpells;
 import net.minecraftforge.fml.ModLoadingContext;  // ← これ！
 import com.tyamizumoti.raistyl_misxi.item.IncompleteChronoIngotItem;
@@ -199,8 +200,8 @@ public RaistylMisxi() {
     ModRecipes.register(modEventBus);
     ModCreativeModeTabs.register(modEventBus);
 
+    ModSchools.register(modEventBus);
     ModSpells.register(modEventBus);
-    
 
     // 4. イベントリスナーの登録
     modEventBus.addListener(this::commonSetup);
