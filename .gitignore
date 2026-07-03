@@ -1,25 +1,14 @@
-# eclipse
-bin
-*.launch
-.settings
-.metadata
-.classpath
-.project
+# Macの一時ファイル
+.DS_Store
 
-# idea
-out
-*.ipr
-*.iws
-*.iml
-.idea
+# その他、GitHubに送りたくないフォルダやファイル
+Could
+Get
+Task
+Run
 
-# gradle
-build
-.gradle
-
-# other
-eclipse
-run
-
-# Files from Forge MDK
-forge*changelog.txt
+# Gradleのキャッシュや自動生成フォルダ
+.gradle/
+build/
+run/
+*.log
