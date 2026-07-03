@@ -1,13 +1,13 @@
-# Macの一時ファイル
+
 .DS_Store
 
-# その他、GitHubに送りたくないフォルダやファイル
+
 Could
 Get
 Task
 Run
 
-# Gradleのキャッシュや自動生成フォルダ
+
 .gradle/
 build/
 run/
